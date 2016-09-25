@@ -19,7 +19,9 @@ return [
     ],
 
     'user/index' => 'index/user/index',
-    'user/login' => 'index/user/login',
     'user/register' => 'index/user/register',
+    'user/login' => 'index/user/login',
+    'user/logout' => 'index/user/logout',
+    'user/access' => 'index/user/access',
 
 ];
