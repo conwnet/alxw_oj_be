@@ -33,8 +33,7 @@ class User extends Controller
         if($len > 64) return json_encode(['error' => 'password too long']);
         $user = model\User::get(['username' => $username]);
         if($user == NULL) {
-            $_POST['password'] = password_encrypt($_POST['password']);
-            if((new model\User())->save(['username' => $username, 'password' => $password, 'status' => 1])) {
+            if((new model\User())->save(['username' => $username, 'password' => password_encrypt($password), 'status' => 1])) {
                 return json_encode(['error' => null]);
             } else {
                 return json_encode(['error' => 'db error']);
