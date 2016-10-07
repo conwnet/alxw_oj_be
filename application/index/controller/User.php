@@ -9,14 +9,14 @@ class User extends Controller
     public function index() {
         return $this->fetch();
     }
-	
-	public function access() {
-		if(Session::get('access')) {
-			return json_encode(['error' => null]);
-		} else {
-			return json_encode(['error' => 'not login']);
-		}
-	}
+    
+    public function access() {
+        if(Session::get('access')) {
+            return json_encode(['error' => null]);
+        } else {
+            return json_encode(['error' => 'not login']);
+        }
+    }
 
     public function login() {
         $user = model\User::get(['username' => input('post.username')]);
@@ -24,7 +24,7 @@ class User extends Controller
             return json_encode(['error' => 'username not exist']);
         } else {
             if(password_encrypt(input('post.password')) == $user->password) {
-				Session::set('access', true);
+                Session::set('access', true);
                 return json_encode(['error' => null]);
             } else {
                 return json_encode(['error' => 'wrong password']);
@@ -32,15 +32,15 @@ class User extends Controller
         }
     }
 
-	public function logout() {
-		Session::set('access', false);
+    public function logout() {
+        Session::set('access', false);
         return json_encode(['error' => null]);
-	}
+    }
 
     public function register() {
         $username = input('post.username');
         $password = input('post.password');
-		$nickname = input('post.nickname');
+        $nickname = input('post.nickname');
         $len = strlen($username);
         if($len < 3) return json_encode(['error' => 'username too short']);
         if($len > 64) return json_encode(['error' => 'username too long']);
@@ -50,10 +50,10 @@ class User extends Controller
         $user = model\User::get(['username' => $username]);
         if($user == NULL) {
             if((new model\User())->save([
-				'username' => $username,
-				'password' => password_encrypt($password),
-				'nickname' => $nickname,
-				'status' => 1])) {
+                'username' => $username,
+                'password' => password_encrypt($password),
+                'nickname' => $nickname,
+                'status' => 1])) {
                 return json_encode(['error' => null]);
             } else {
                 return json_encode(['error' => 'db error']);
