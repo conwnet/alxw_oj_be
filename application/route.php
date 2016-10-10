@@ -24,4 +24,6 @@ return [
     'user/logout' => 'index/user/logout',
     'user/access' => 'index/user/access',
 
+    'problem/:id' => 'index/problem/get',
+
 ];
